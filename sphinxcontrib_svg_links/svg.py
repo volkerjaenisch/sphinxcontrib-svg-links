@@ -8,7 +8,7 @@ ET.register_namespace('xlink', 'http://www.w3.org/1999/xlink')
 
 def patch_svg(node, writer):
     """
-    SVG elements should link to sphinx content. This is done by clueing speudo URIs to
+    SVG elements should link to sphinx content. This is done by cluing pseudo URIs to
     the SVG elements.
 
         <a xlink:href="svglink://#other-reference-label">
@@ -16,19 +16,19 @@ def patch_svg(node, writer):
                      pointer-events="all"/>
         </a>
 
-    In this example the ellipse links to the speudo URI "svglink://#other-reference-label" which represents
+    In this example the ellipse links to the pseudo URI "svglink://#other-reference-label" which represents
     the target label "#other-reference-label". The target "#other-reference-label" should
     be defined elsewhere e.g. it may link to a chapter_
 
-    .. _other-reference-label:
+        .. _other-reference-label:
 
-    This is a chapter
-    -----------------
+        This is a chapter
+        -----------------
 
-    Each speudo URI has to start with "svglink://".
+    Each pseudo URI has to start with "svglink://".
     THe linking can be done comfortably by using draw.io or inkscape or any other capable SVG editor.
 
-    This routine patches the SVG file so that the speudo URIs are replaced by the
+    This routine patches the SVG file so that the pseudo URIs are replaced by the
     correct relative URIs to the target referenced.
 
     :param node: The current node that is rendered
@@ -49,12 +49,12 @@ def patch_svg(node, writer):
     root = etree.getroot()
 
     # Iterate over all hrefs in the SVG file
-    for child in root.findall(".//*[@xlink:href]"):
-        # Get the speudo URI
-        speudo_URI = child.attrib['xlink:href']
+    for child in root.findall(".//*[@xlink:href]", namespaces={'xlink': 'http://www.w3.org/1999/xlink'}):
+        # Get the pseudo URI. Yes, the namespace has to be so written into the argument.
+        speudo_URI = child.attrib['{http://www.w3.org/1999/xlink}href']
         if not speudo_URI.startswith(SVGLINKS_PREFIX):
             continue
-        # cut the reference part from the speudo URI
+        # cut the reference part from the pseudo URI
         reference = speudo_URI[len(SVGLINKS_PREFIX):]
         # Strip '#' to get the reference label
         if reference.startswith('#'):
@@ -69,16 +69,23 @@ def patch_svg(node, writer):
             else:
                 # Link to file in other directory needs a path
                 new_reference = '/'.join(ref_tupel[:-3]) + ref_tupel[-3] + '.html' + '#' + ref_tupel[-2]
-            # Replace the link to the speudo URI with the new reference
-            child.attrib['xlink:href'] = '../' + new_reference
+            # Replace the link to the pseudo URI with the new reference
+            child.attrib['{http://www.w3.org/1999/xlink}href'] = '../' + new_reference
             # Tell the browser to measure the relative paths from the parent of the embedded SVG object.
             child.attrib['target'] = '_parent'
         else:
             # ToDo Error handling if reference can not be found
             pass
+
     # Determine the new location in the filesystem for the patched SVG file in the "build" dir.
-    # ToDo: Catch file name collisions [SVG image is embedded twice], better naming convention
-    new_svg_file_path = Path(writer.builder.outdir) / writer.builder.imagedir / (node.attributes['original_uri'] + '.1.svg')
+    # ToDo: Catch file name collisions [SVG image is embedded twice]
+    # ToDo: better file naming convention
+    # ToDo: prevent copying the original file
+    new_svg_file_path = Path(writer.builder.outdir) / writer.builder.imagedir / Path(node.attributes['original_uri'] + '.1.svg').name
+
+    # check if *build/_images* exists and if not create it:
+    if not new_svg_file_path.exists():
+        new_svg_file_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Write the SVG file
     with open(new_svg_file_path, "wb") as f:

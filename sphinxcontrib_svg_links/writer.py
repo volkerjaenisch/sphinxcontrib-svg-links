@@ -53,7 +53,10 @@ def visit_image_html(self, node: nodes.Node):
         atts['alt'] = node.get('alt', uri)
         if 'align' in node:
             atts['class'] = 'align-%s' % node['align']
-        if 'svglinks' in node.attributes and node.attributes['svglinks']:
+
+        # This is due to svg-links
+        if 'svglinks' in node.attributes and node.attributes['svglinks'] \
+                or 'svglinks' in node.parent.attributes and node.parent.attributes['svglinks']:
             patched_SVG_path = patch_svg(node, self)
             atts['data'] = patched_SVG_path
             del atts['src']
@@ -63,6 +66,7 @@ def visit_image_html(self, node: nodes.Node):
             self.body.append('</object>')
 
         else:
+            # thi sis the original behavior
             self.body.append(self.emptytag(node, 'img', '', **atts))
         return
 
