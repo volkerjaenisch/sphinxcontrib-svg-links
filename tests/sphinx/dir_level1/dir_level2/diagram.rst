@@ -1,13 +1,17 @@
 
-First rst file
-==============
 
-#.. image:: ../output.svg
-#  :svglinks: True
-#  :width: 400
-#  :alt: Alternative text
+The top level diagram
+=====================
 
-.. figure:: ../output.svg
+Example usage:
+::
+
+    .. image:: ../output.svg
+      :svglinks: True
+      :width: 400
+      :alt: Alternative text
+
+.. figure:: ../diagram.svg
   :svglinks: True
   :width: 400
   :alt: Alternative text
