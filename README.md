@@ -69,7 +69,8 @@ The queen of elements - the ellipse
 ```
 
 If the **svglinks** attribute exists and is *True*, then the SVG will be not treated as an image 
-but will be embedded as an HTML <object>.  
+but will be embedded as an HTML <object>. So you can decide which SVG image will have links and 
+which may not.  
 
 *svg-links* will the parse the SVG file and replace the pseudo URIs wil relative
 links to the sphinx labels in the document.
