@@ -18,6 +18,7 @@ Diagram elements in overview
 
 
 See here :ref:`rectangle-reference-label`
+
 See other :ref:`ellipse-reference-label`
 
 

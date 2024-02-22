@@ -3,9 +3,26 @@
 *sphinxcontrib-svg-links* in short *svg-links* let you 
 link from SVG elements anywhere, even to Sphinx labels.
 
-## Demonstration
+## Installation
 
-[Demo]
+Install the package
+
+```{bash}
+$ pip install sphinxcontrib-svg-links
+```
+
+Add the extension to your conf.py
+
+```{python}
+
+extensions = [
+        ...,
+        
+        'sphinxcontrib_svg_links.extension',
+        
+        ...,
+        ]
+```
 
 ## How it works
 
@@ -18,19 +35,19 @@ In this SVG file fragment
         </a>
 ```
 
-the ellipse links to *svglink://#other-reference-label* which is a pseudo URI. 
+the ellipse element links to *svglink://#ellipse-reference-label* which is a pseudo URI. 
 Such links can be comfortably set utilizing draw.io or any other capable SVG editor.
 
 ![](draw.io_set_link.png)
 
-The pseudo URI *svglink://#other-reference-label* is a reference to a Spinx label
+The pseudo URI *svglink://#ellipse-reference-label* is a reference to a Spinx label
 defined elsewhere: 
 
 ```{rst}
-.. _other-reference-label:
+.. _ellipse-reference-label:
 
-A new chapter
--------------
+The queen of elements - the ellipse
+-----------------------------------
 
 ```
 
@@ -47,10 +64,12 @@ A new chapter
   :width: 400
   :alt: Beautiful diagram
     
-  What a diagram!
+  What a nice diagram!
     
 ```
 
+If the **svglinks** attribute exists and is *True* then the SVG will be not treated as an image 
+but will be embedded as HTML <object>.  
 
 
 
