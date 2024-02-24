@@ -39,9 +39,14 @@ def patch_svg(node, writer):
     # Get the SVG file path
     # The current base dir is the parent of the current file
     current_doc_dir = Path(writer.builder.current_docname).parent
-    # and the original_uri attribute of the node gives aus the relative SVG file path
-    svg_file_path = current_doc_dir / Path(node.attributes['original_uri'])
-
+    # and the original_uri or candidates attribute of the node gives us the relative SVG file path
+    if 'original_uri' in node.attributes:
+        svg_file_path = current_doc_dir / Path(node.attributes['original_uri'])
+    elif 'candidates' in node.attributes:
+        svg_file_path = Path(node.attributes['candidates']['*'])
+    else:
+        pass
+        # ToDo error handling
     # Parse the SVG file
     with open(svg_file_path, "rb") as f:
         etree = ET.parse(f)
@@ -81,7 +86,15 @@ def patch_svg(node, writer):
     # ToDo: Catch file name collisions [SVG image is embedded twice]
     # ToDo: better file naming convention
     # ToDo: prevent copying the original file
-    new_svg_file_path = Path(writer.builder.outdir) / writer.builder.imagedir / Path(node.attributes['original_uri'] + '.1.svg').name
+    if 'original_uri' in node.attributes:
+        svg_file_name = Path(node.attributes['original_uri']).name
+    elif 'candidates' in node.attributes:
+        svg_file_name = Path(node.attributes['candidates']['*']).name
+    else:
+        pass
+        # ToDo error handling
+
+    new_svg_file_path = Path(writer.builder.outdir) / writer.builder.imagedir / (svg_file_name + '1.svg')
 
     # check if *build/_images* exists and if not create it:
     if not new_svg_file_path.exists():
@@ -92,4 +105,4 @@ def patch_svg(node, writer):
         etree.write(f)
 
     # Return the relative URI for the SVG <object> to find its data
-    return Path(writer.builder.imgpath) / Path(node.attributes['original_uri'] + '.1.svg').name
+    return Path(writer.builder.imgpath) / (svg_file_name + '1.svg')

@@ -72,7 +72,4 @@ def visit_image_html(self, node: nodes.Node):
 
 
 def depart_image_html(self, node: nodes.Node):
-    if node['uri'].lower().endswith(('svg', 'svgz')):
-        pass
-    else:
-        super().depart_image(node)
+    pass

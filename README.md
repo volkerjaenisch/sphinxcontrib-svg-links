@@ -38,7 +38,7 @@ In this SVG file fragment
 the ellipse element links to *svglink://#ellipse-reference-label* which is a pseudo URI. 
 Such links can be comfortably set utilizing draw.io or any other capable SVG editor.
 
-![](docs/draw.io_set_link.png)
+![](https://raw.githubusercontent.com/volkerjaenisch/sphinxcontrib-svg-links/master/docs/draw.io_set_link.png)
 
 The pseudo URI *svglink://#ellipse-reference-label* is a reference to a Spinx label
 defined elsewhere: 
@@ -72,7 +72,7 @@ If the **svglinks** attribute exists and is *True*, then the SVG will be not tre
 but will be embedded as an HTML <object>. So you can decide which SVG image will have links and 
 which may not.  
 
-*svg-links* will the parse the SVG file and replace the pseudo URIs wil relative
+*svg-links* will the parse the SVG file and replace the pseudo URIs with relative
 links to the sphinx labels in the document.
 
 ## Demonstration

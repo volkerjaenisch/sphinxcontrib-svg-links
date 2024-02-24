@@ -1,25 +1,10 @@
 [tool.poetry]
 name = "sphinxcontrib-svg-links"
-version = "0.1.0"
+version = "0.1.4"
 description = ""
 authors = ["volker <volker.jaenisch@inqbus.de>"]
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.11"
-sphinx = ">=6,<8"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[project]
-name = "sphinxcontrib-svg-links"
-dynamic = ["version"]
-description = "A Sphinx extension for linking to URIs and Sphinx labels from SVG graphics."
-authors = [{name = "Dr. Volker Jaenisch", email = "volker.jaenisch@inqbus.de"}]
-readme = "README.md"
-license = {file = "LICENSE"}
+license = "MIT"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Framework :: Sphinx :: Extension",
@@ -37,8 +22,21 @@ classifiers = [
 
 ]
 keywords = ["sphinx", "extension", "SVG", "links", "URI"]
-requires-python = ">=3.8"
-dependencies = ["sphinx>6,<8"]
+include = ["docs/draw.io_set_link.png"]
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+sphinx = ">=6,<8"
+myst-parser = { path = "../MyST-Parser/", develop = true }
+spacy = "3.7.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 
 [project.urls]
 Homepage = "https://github.com/sphinxcontrib-svg-links"
