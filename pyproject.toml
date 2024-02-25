@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinxcontrib-svg-links"
-version = "0.1.4"
+version = "0.1.5"
 description = ""
 authors = ["volker <volker.jaenisch@inqbus.de>"]
 readme = "README.md"
@@ -31,7 +31,6 @@ python = "^3.8"
 [tool.poetry.dev-dependencies]
 sphinx = ">=6,<8"
 myst-parser = { path = "../MyST-Parser/", develop = true }
-spacy = "3.7.4"
 
 [build-system]
 requires = ["poetry-core"]
