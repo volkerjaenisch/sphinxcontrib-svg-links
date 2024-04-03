@@ -12,7 +12,7 @@ rebum. Stet clita kasd gubergren,
 no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 
-(ellipse-reference-label)=
+(ellipse-reference-labe)=
 ## The crown of elements - ellipses
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr,

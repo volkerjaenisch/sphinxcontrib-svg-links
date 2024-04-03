@@ -85,8 +85,7 @@ def patch_svg(node, writer):
             child.attrib['target'] = '_parent'
         else:
             logger.warning(
-                __(f'Cannot find anchor for svglink reference: {reference}. Please check your anchors!'),
-                location=node,
+                __(f'  Cannot find anchor for svglink reference: "{reference}". Please check your anchors!'),
             )
 
     # Determine the new location in the filesystem for the patched SVG file in the "build" dir.
