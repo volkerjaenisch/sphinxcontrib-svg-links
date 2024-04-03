@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinxcontrib-svg-links"
-version = "0.1.6"
+version = "0.1.8"
 description = ""
 authors = ["volker <volker.jaenisch@inqbus.de>"]
 readme = "README.md"
