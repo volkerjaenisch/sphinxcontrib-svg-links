@@ -1,5 +1,10 @@
+import logging
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from sphinx.locale import __
+
+logger = logging.getLogger(__name__)
+
 
 SVGLINKS_PREFIX = "svglink://"
 
@@ -79,8 +84,10 @@ def patch_svg(node, writer):
             # Tell the browser to measure the relative paths from the parent of the embedded SVG object.
             child.attrib['target'] = '_parent'
         else:
-            # ToDo Error handling if reference can not be found
-            pass
+            logger.warning(
+                __(f'Cannot find anchor for svglink reference: {reference}. Please check your anchors!'),
+                location=node,
+            )
 
     # Determine the new location in the filesystem for the patched SVG file in the "build" dir.
     # ToDo: Catch file name collisions [SVG image is embedded twice]

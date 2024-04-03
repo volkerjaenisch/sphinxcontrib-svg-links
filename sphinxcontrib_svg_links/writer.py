@@ -7,7 +7,7 @@ from docutils import nodes
 from sphinx.util.images import get_image_size
 
 from sphinx.locale import __
-from sphinx.writers.html5 import multiply_length
+from sphinx.writers.html5 import multiply_length, HTML5Translator
 
 from sphinxcontrib_svg_links.svg import patch_svg
 
@@ -69,6 +69,8 @@ def visit_image_html(self, node: nodes.Node):
             # thi sis the original behavior
             self.body.append(self.emptytag(node, 'img', '', **atts))
         return
+
+    super(HTML5Translator, self).visit_image(node)
 
 
 def depart_image_html(self, node: nodes.Node):

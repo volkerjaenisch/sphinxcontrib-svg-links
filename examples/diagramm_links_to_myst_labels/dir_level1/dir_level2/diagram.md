@@ -2,16 +2,8 @@
 
 Example usage:
 
-```{image} ./path/to/figure.jpg
-      :svglinks: Toad
-      :name: label
-      :width: 400
-      :alt: Alternative text
-```
-
-
 ```{figure} ../diagram.svg
-  :svglinks: Toad
+  :svglinks: True
   :width: 400
   :alt: Alternative text
 
